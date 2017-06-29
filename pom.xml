@@ -187,7 +187,19 @@
 
   <build>
     <pluginManagement>
-      <plugins>
+      <plugins>      
+        <!-- TODO report https://github.com/jboss/jboss-parent-pom/blob/master/pom.xml -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <dependencies>
+            <dependency>
+              <groupId>commons-lang</groupId>
+              <artifactId>commons-lang</artifactId>
+              <version>2.6</version>
+            </dependency>
+          </dependencies>
+        </plugin>
         <plugin>
             <groupId>org.jboss.byteman</groupId>
             <artifactId>byteman-rulecheck-maven-plugin</artifactId>
