@@ -310,7 +310,7 @@ function build_as {
   git pull --rebase --ff-only upstream master
   [ $? = 0 ] || fatal "git rebase failed"
 
-  if [ $JAVA_VERSION = "9-ea" ]; then
+  if [ $JAVA_VERSION = "9" ]; then
      # build openjdk-orb with fixing the reflect issue
      # build_openjdk_orb
      # replace the openjdk-orb with the 8.0.8.Beta1
@@ -374,7 +374,7 @@ function rts_as_tests {
 function jta_as_tests {
   echo "#-1. JTA AS Integration Test"
   cp ArjunaJTA/jta/src/test/resources/standalone-cmr.xml ${JBOSS_HOME}/standalone/configuration/
-  if [ $JAVA_VERSION = "9-ea" ]; then
+  if [ $JAVA_VERSION = "9" ]; then
     MAVEN_OPTS="-Xms1303m -Xmx1303m" ./build.sh -f ./ArjunaJTA/jta/pom.xml -Parq $CODE_COVERAGE_ARGS "$@" test
   else
     MAVEN_OPTS="-XX:MaxPermSize=512m -Xms1303m -Xmx1303m" ./build.sh -f ./ArjunaJTA/jta/pom.xml -Parq $CODE_COVERAGE_ARGS "$@" test
@@ -435,7 +435,7 @@ function blacktie {
 
   if [[ $# == 0 || $# > 0 && "$1" != "-DskipTests" ]]; then
     # START JBOSS
-    if [ $JAVA_VERSION = "9-ea" ]; then
+    if [ $JAVA_VERSION = "9" ]; then
       # build openjdk-orb with fixing the reflect issue
       #build_openjdk_orb
 
@@ -691,7 +691,7 @@ function qa_tests_once {
     sed -e "s/COMMAND_LINE_13=-DCoordinatorEnvironmentBean.defaultTimeout=[0-9]*/COMMAND_LINE_13=-DCoordinatorEnvironmentBean.defaultTimeout=${txtimeout}/" TaskImpl.properties > "TaskImpl.properties.tmp" && mv "TaskImpl.properties.tmp" "TaskImpl.properties"
   fi
   # if IPV6_OPTS is not set get the jdbc drivers (we do not run the jdbc tests in IPv6 mode)
-  if [ $JAVA_VERSION = "9-ea" ]; then
+  if [ $JAVA_VERSION = "9" ]; then
     orbtype="${orbtype}"
   fi
   ant get.drivers
@@ -778,7 +778,7 @@ function qa_tests {
     qa_tests_once "orb=ibmorb" "$@" # run qa against the Sun orb
     ok3=$?
   else
-    if [ $JAVA_VERSION = "9-ea" -o $SUN_ORB = 1 ]; then
+    if [ $JAVA_VERSION = "9" -o $SUN_ORB = 1 ]; then
       qa_tests_once "orb=idlj" "$@" # run qa against the Sun orb
       ok2=$?
     fi
