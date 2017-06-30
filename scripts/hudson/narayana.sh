@@ -565,6 +565,9 @@ function tomcat_tests {
 </tomcat-users>
 EOF
     echo "Executing Narayana Tomcat tests"
+    if [ $JAVA_VERSION = "9" ]; then
+       export MAVEN_OPTS="--add-modules=java.xml.bind $MAVEN_OPTS"
+    fi
     ./build.sh -f tomcat/tomcat-jta/pom.xml -P${ARQ_PROF}-tomcat ${CODE_COVERAGE_ARGS} "$@" ${IPV6_OPTS} install "$@"
     RESULT=$?
     rm -r ${TOMCAT_NAME}
