@@ -50,7 +50,7 @@ then
 fi
 
 JAVA_VERSION=$(java -version 2>&1 | grep "java version" | cut -d\  -f3 | tr -d '"')
-if [ $JAVA_VERSION = "9-ea" ]; then
+if [ $JAVA_VERSION = "9" ]; then
 	MAVEN_OPTS="$MAVEN_OPTS --add-modules java.corba --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED"
 else
 	MAVEN_OPTS="-XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC $MAVEN_OPTS" 
