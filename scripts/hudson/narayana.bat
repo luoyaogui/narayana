@@ -41,10 +41,10 @@ rem INITIALIZE JBOSS
 
 call ant -f blacktie\scripts\hudson\initializeJBoss.xml -DJBOSS_HOME=%JBOSS_HOME% initializeJBoss -debug || (call:fail_build & exit -1)
 
-rem REPLACE THE OPENJDK-ORB WITH THE 8.0.8.Beta1
-wget --no-check-certificate https://repository.jboss.org/nexus/content/repositories/releases/org/jboss/openjdk-orb/openjdk-orb/8.0.8.Beta1/openjdk-orb-8.0.8.Beta1.jar -O %JBOSS_HOME%\modules\system\layers\base\javax\orb\api\main\openjdk-orb-8.0.8.Beta1.jar
+rem REPLACE THE OPENJDK-ORB WITH THE 8.0.8.Final
+wget --no-check-certificate https://repository.jboss.org/nexus/content/repositories/releases/org/jboss/openjdk-orb/openjdk-orb/8.0.8.Final/openjdk-orb-8.0.8.Final.jar -O %JBOSS_HOME%\modules\system\layers\base\javax\orb\api\main\openjdk-orb-8.0.8.Final.jar
 set OPENJDK_ORB_MODULE_XML=%JBOSS_HOME%\modules\system\layers\base\javax\orb\api\main\module.xml
-powershell -Command "((Get-Content ($env:OPENJDK_ORB_MODULE_XML)).replace('8.0.6.Final', '8.0.8.Beta1') | Set-Content ($env:OPENJDK_ORB_MODULE_XML))"
+powershell -Command "((Get-Content ($env:OPENJDK_ORB_MODULE_XML)).replace('8.0.6.Final', '8.0.8.Final') | Set-Content ($env:OPENJDK_ORB_MODULE_XML))"
 
 rem START JBOSS
 rem set JAVA_OPTS="%JAVA_OPTS% -Xmx1024m -XX:MaxPermSize=512m"
